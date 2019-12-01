@@ -4,17 +4,21 @@ import {
   LOAD_USER_DETAILS_DATA_ERROR,
   REMOVE_POST,
   REMOVE_POST_SUCCESS,
-  REMOVE_POST_ERROR
+  REMOVE_POST_ERROR,
+  OPEN_POST_MODAL,
+  CANCEL_POST
 } from "../actions/userDetailsAction";
 
 const initialState = {
   isLoading: false,
+  isShowModal: false,
   userDetailsData: []
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case LOAD_USER_DETAILS_DATA || REMOVE_POST:
+    case LOAD_USER_DETAILS_DATA:
+    case REMOVE_POST:
       return {
         ...state,
         isLoading: true
@@ -25,7 +29,8 @@ export default (state = initialState, action) => {
         isLoading: false,
         userDetailsData: action.payload
       };
-    case LOAD_USER_DETAILS_DATA_ERROR || REMOVE_POST_ERROR:
+    case LOAD_USER_DETAILS_DATA_ERROR:
+    case REMOVE_POST_ERROR:
       return {
         ...state,
         isLoading: false,
@@ -39,6 +44,13 @@ export default (state = initialState, action) => {
           userDetailData => userDetailData.id !== action.payload
         )
       };
+    case OPEN_POST_MODAL:
+    case CANCEL_POST:
+      return {
+        ...state,
+        isShowModal: !state.isShowModal
+      };
+
     default:
       return state;
   }

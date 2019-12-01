@@ -11,7 +11,8 @@ import {
   loadUserDetailsDataErrorAction,
   removePostAction,
   removePostSuccessAction,
-  removePostErrorAction
+  removePostErrorAction,
+  openPostModalAction
 } from "../../actions/userDetailsAction";
 import { Header } from "../../components/Header";
 
@@ -26,6 +27,7 @@ export default function UserDetailsPage() {
     state => state.homeReducer.usersData[userId - 1].name
   );
   const onRemovePost = postId => dispatch(handlePost(postId));
+  const onOpenPostModal = () => dispatch(openPostModalAction());
 
   function handleUserDetailsData() {
     return dispatch => {
@@ -56,12 +58,13 @@ export default function UserDetailsPage() {
   return (
     <div>
       <Header>
-        <div>back</div>
-        <div>{userName}</div>
-        <div>add</div>
-      </Header>
+        <LinkWrapper to={`/`}>
+          <div>back</div>
+        </LinkWrapper>
 
-      <br />
+        <div>{userName}</div>
+        <div onClick={onOpenPostModal}>add</div>
+      </Header>
 
       {!isLoading && userDetailsData.length
         ? userDetailsData.map(userDetailData => (

@@ -2,7 +2,9 @@ import {
   TOGGLE_SHOW_COMMENTS,
   GET_COMMENTS,
   GET_COMMENTS_SUCCESS,
-  GET_COMMENTS_ERROR
+  GET_COMMENTS_ERROR,
+  CANCEL_COMMENT,
+  OPEN_COMMENT_MODAL
 } from "../actions/postDetailsAction";
 
 const initialState = {
@@ -35,6 +37,12 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         error: action.payload
+      };
+    case CANCEL_COMMENT:
+    case OPEN_COMMENT_MODAL:
+      return {
+        ...state,
+        isShowModal: !state.isShowModal
       };
 
     default:

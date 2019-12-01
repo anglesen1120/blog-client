@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { api } from "../../utils";
+
 import {
   toggleShowCommentsAction,
   getCommentsAction,
@@ -16,6 +17,7 @@ import {
   ItemContact,
   ItemCompany
 } from "../../components/Listing";
+import { LinkWrapper } from "../../components/Link";
 
 export default function PostDetailsPage() {
   const dispatch = useDispatch();
@@ -51,6 +53,9 @@ export default function PostDetailsPage() {
   return (
     <div>
       <div>{userName}</div>
+      <LinkWrapper to={`/user/${userId}`}>
+        <div>back</div>
+      </LinkWrapper>
 
       <div>{userDetailsData && userDetailsData.title}</div>
       <div>{userDetailsData && userDetailsData.body}</div>
@@ -68,7 +73,7 @@ export default function PostDetailsPage() {
 
       {!isLoading && comments.length && isShowComments
         ? comments.map(comment => (
-            <Item>
+            <Item key={comment.id}>
               <div>
                 <ItemName>{comment.name}</ItemName>
                 <ItemContact>{comment.email}</ItemContact>
