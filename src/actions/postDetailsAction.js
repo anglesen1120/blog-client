@@ -1,25 +1,9 @@
-export const LOAD_USER_DETAILS_DATA = "LOAD_USER_DETAILS_DATA";
-export const LOAD_USER_DETAILS_DATA_SUCCESS = "LOAD_USER_DETAILS_DATA_SUCCESS";
-export const LOAD_USER_DETAILS_DATA_ERROR = "LOAD_USER_DETAILS_DATA_ERROR";
+export const GET_COMMENTS = "GET_COMMENTS";
+export const GET_COMMENTS_SUCCESS = "GET_COMMENTS_SUCCESS";
+export const GET_COMMENTS_ERROR = "GET_COMMENTS_ERROR";
 
-export const BACK_TO_HOME = "BACK_TO_HOME";
-export const OPEN_POST_MODAL = "OPEN_POST_MODAL";
-
-export const CHANGE_POST_TITLE = "CHANGE_POST_TITLE";
-export const CHANGE_POST_BODY = "CHANGE_POST_BODY";
-
-export const SAVE_POST = "SAVE_POST";
-export const SAVE_POST_SUCCESS = "SAVE_POST_SUCCESS";
-export const SAVE_POST_ERROR = "SAVE_POST_ERROR";
-export const CANCEL_POST = "CANCEL_POST";
-
-export const GET_POST = "GET_POST";
-export const GET_POST_SUCCESS = "GET_POST_SUCCESS";
-export const GET_POST_ERROR = "GET_POST_ERROR";
-
-export const SHOW_COMMENTS = "SHOW_COMMENTS";
-export const HIDE_COMMENTS = "HIDE_COMMENTS";
-export const ADD_COMMENT_MODAL = "ADD_COMMENT_MODAL";
+export const TOGGLE_SHOW_COMMENTS = "TOGGLE_SHOW_COMMENTS";
+export const OPEN_COMMENT_MODAL = "OPEN_COMMENT_MODAL";
 
 export const CHANGE_COMMENT_NAME = "CHANGE_COMMENT_NAME";
 export const CHANGE_COMMENT_EMAIL = "CHANGE_COMMENT_EMAIL";
@@ -30,126 +14,37 @@ export const ADD_COMMENT_SUCCESS = "ADD_COMMENT_SUCCESS";
 export const ADD_COMMENT_ERROR = "ADD_COMMENT_ERROR";
 export const CANCEL_COMMENT = "CANCEL_COMMENT";
 
-export const loadUserDetailsDataAction = () => dispatch => {
+export const getCommentsAction = () => dispatch => {
   dispatch({
-    type: LOAD_USER_DETAILS_DATA
+    type: GET_COMMENTS
   });
 };
 
-export const loadUserDetailsDataSuccessAction = userDetails => dispatch => {
+export const getCommentsSuccessAction = comments => dispatch => {
   dispatch({
-    type: LOAD_USER_DETAILS_DATA_SUCCESS,
-    payload: {
-      ...userDetails
-    }
+    type: GET_COMMENTS_SUCCESS,
+    payload: [comments]
   });
 };
 
-export const loadUserDetailsDataErrorAction = error => dispatch => {
+export const getCommentsErrorAction = error => dispatch => {
   dispatch({
-    type: LOAD_USER_DETAILS_DATA_ERROR,
+    type: GET_COMMENTS_ERROR,
     payload: {
       error
     }
   });
 };
 
-export const backToHomeAction = () => dispatch => {
+export const toggleShowCommentsAction = () => dispatch => {
   dispatch({
-    type: BACK_TO_HOME
+    type: TOGGLE_SHOW_COMMENTS
   });
 };
 
-export const openPostModalAction = () => dispatch => {
+export const openCommentModalAction = () => dispatch => {
   dispatch({
-    type: OPEN_POST_MODAL
-  });
-};
-
-export const changePostTitleAction = postTitle => dispatch => {
-  dispatch({
-    type: CHANGE_POST_TITLE,
-    payload: {
-      postTitle
-    }
-  });
-};
-
-export const changePostBodyAction = postBody => dispatch => {
-  dispatch({
-    type: CHANGE_POST_BODY,
-    payload: {
-      postBody
-    }
-  });
-};
-
-export const savePostAction = () => dispatch => {
-  dispatch({
-    type: SAVE_POST
-  });
-};
-
-export const savePostSuccessAction = () => dispatch => {
-  dispatch({
-    type: SAVE_POST_SUCCESS
-  });
-};
-
-export const savePostErrorAction = error => dispatch => {
-  dispatch({
-    type: SAVE_POST_ERROR,
-    payload: {
-      error
-    }
-  });
-};
-
-export const cancelPostAction = () => dispatch => {
-  dispatch({
-    type: CANCEL_POST
-  });
-};
-
-export const getPostAction = () => dispatch => {
-  dispatch({
-    type: GET_POST
-  });
-};
-
-export const getPostSuccessAction = post => dispatch => {
-  dispatch({
-    type: GET_POST_SUCCESS,
-    payload: {
-      ...post
-    }
-  });
-};
-
-export const getPostErrorAction = error => dispatch => {
-  dispatch({
-    type: GET_POST_ERROR,
-    payload: {
-      error
-    }
-  });
-};
-
-export const showCommentsAction = () => dispatch => {
-  dispatch({
-    type: SHOW_COMMENTS
-  });
-};
-
-export const hideCommentsAction = () => dispatch => {
-  dispatch({
-    type: HIDE_COMMENTS
-  });
-};
-
-export const addCommentModalAction = () => dispatch => {
-  dispatch({
-    type: ADD_COMMENT_MODAL
+    type: OPEN_COMMENT_MODAL
   });
 };
 

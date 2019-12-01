@@ -1,4 +1,4 @@
 import { Button } from "./Button.style";
-import { ButtonWrapper } from "./ButtonWrapper.style";
+import { ButtonWrapper } from "./Wrapper.style";
 
 export { Button, ButtonWrapper };

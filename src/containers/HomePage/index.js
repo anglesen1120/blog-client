@@ -6,6 +6,7 @@ import {
   loadUsersDataSuccessAction,
   loadUsersDataErrorAction
 } from "../../actions/homeAction";
+import { api } from "../../utils";
 import axios from "axios";
 import {
   Listing,
@@ -15,19 +16,19 @@ import {
   ItemCompany
 } from "../../components/Listing";
 import { Button, ButtonWrapper } from "../../components/Button";
+import { LinkWrapper } from "../../components/Link";
 
 export default function HomePage() {
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.homeReducer.isLoading);
   const usersData = useSelector(state => state.homeReducer.usersData);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleUsersData() {
     return dispatch => {
       dispatch(loadUsersDataAction());
 
       axios
-        .get("https://jsonplaceholder.typicode.com/users")
+        .get(api.users)
         .then(res => dispatch(loadUsersDataSuccessAction(res.data)))
         .catch(error => dispatch(loadUsersDataErrorAction(error)));
     };
@@ -56,7 +57,9 @@ export default function HomePage() {
               </ItemCompany>
 
               <ButtonWrapper>
-                <Button>Details</Button>
+                <LinkWrapper to={`/user/${userData.id}`}>
+                  <Button>Details</Button>
+                </LinkWrapper>
               </ButtonWrapper>
             </Item>
           ))
