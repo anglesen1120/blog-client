@@ -1,4 +1,6 @@
 export default {
   black: "#000",
-  blue: "#007cff"
+  white: "#fff",
+  blue_primary: "#007cff",
+  blue_secondary: "#105292"
 };

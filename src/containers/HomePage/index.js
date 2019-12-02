@@ -17,6 +17,7 @@ import {
 } from "../../components/Listing";
 import { Button, ButtonWrapper } from "../../components/Button";
 import { LinkWrapper } from "../../components/Link";
+import { Layout } from "../../components/Layout";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -39,31 +40,33 @@ export default function HomePage() {
   }, []);
 
   return (
-    <Listing>
-      {!isLoading && usersData.length
-        ? usersData.map(userData => (
-            <Item key={userData.id}>
-              <ItemTitle>{userData.name}</ItemTitle>
-              <ItemContact>
-                <div>{userData.email}</div>
-                <div>{userData.phone}</div>
-                <div>{userData.website}</div>
-              </ItemContact>
+    <Layout>
+      <Listing>
+        {!isLoading && usersData.length
+          ? usersData.map(userData => (
+              <Item key={userData.id}>
+                <ItemTitle>{userData.name}</ItemTitle>
+                <ItemContact>
+                  <div>{userData.email}</div>
+                  <div>{userData.phone}</div>
+                  <div>{userData.website}</div>
+                </ItemContact>
 
-              <ItemDescription>
-                <div>{userData.company.name}</div>
-                <div>{userData.company.catchPhrase}</div>
-                <div>{userData.company.bs}</div>
-              </ItemDescription>
+                <ItemDescription>
+                  <div>{userData.company.name}</div>
+                  <div>{userData.company.catchPhrase}</div>
+                  <div>{userData.company.bs}</div>
+                </ItemDescription>
 
-              <ButtonWrapper>
-                <LinkWrapper to={`/user/${userData.id}`}>
-                  <Button>Details</Button>
-                </LinkWrapper>
-              </ButtonWrapper>
-            </Item>
-          ))
-        : null}
-    </Listing>
+                <ButtonWrapper>
+                  <LinkWrapper to={`/user/${userData.id}`}>
+                    <Button>Details</Button>
+                  </LinkWrapper>
+                </ButtonWrapper>
+              </Item>
+            ))
+          : null}
+      </Listing>
+    </Layout>
   );
 }

@@ -15,6 +15,16 @@ import {
   openPostModalAction
 } from "../../actions/userDetailsAction";
 import { Header } from "../../components/Header";
+import { Layout } from "../../components/Layout";
+import { Item, ItemTitle } from "../../components/Listing";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowLeft,
+  faPlusCircle,
+  faTrashAlt,
+  faChevronRight
+} from "@fortawesome/free-solid-svg-icons";
+import { Action } from "../../components/Header/Action.style";
 
 export default function UserDetailsPage() {
   const dispatch = useDispatch();
@@ -56,28 +66,42 @@ export default function UserDetailsPage() {
   }, []);
 
   return (
-    <div>
+    <Layout>
       <Header>
         <LinkWrapper to={`/`}>
-          <div>back</div>
+          <Action>
+            <FontAwesomeIcon size="lg" icon={faArrowLeft} /> <span>Back</span>
+          </Action>
         </LinkWrapper>
 
-        <div>{userName}</div>
-        <div onClick={onOpenPostModal}>add</div>
+        <ItemTitle>{userName}</ItemTitle>
+
+        <Action onClick={onOpenPostModal}>
+          <FontAwesomeIcon size="lg" icon={faPlusCircle} />
+        </Action>
       </Header>
 
       {!isLoading && userDetailsData.length
         ? userDetailsData.map(userDetailData => (
-            <div key={userDetailData.id}>
-              <div onClick={() => onRemovePost(userDetailData.id)}>Trash</div>
-              <LinkWrapper
-                to={`/user/${userDetailData.userId}/${userDetailData.id}`}
-              >
-                {userDetailData.title}
-              </LinkWrapper>
-            </div>
+            <Item isUserDetail key={userDetailData.id}>
+              <div>
+                <FontAwesomeIcon
+                  onClick={() => onRemovePost(userDetailData.id)}
+                  size="lg"
+                  icon={faTrashAlt}
+                />
+
+                <LinkWrapper
+                  to={`/user/${userDetailData.userId}/${userDetailData.id}`}
+                >
+                  <span>{userDetailData.title}</span>
+                </LinkWrapper>
+              </div>
+
+              <FontAwesomeIcon size="lg" icon={faChevronRight} />
+            </Item>
           ))
         : null}
-    </div>
+    </Layout>
   );
 }

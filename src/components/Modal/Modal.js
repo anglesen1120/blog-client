@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import axios from "axios";
+import { Button, ButtonWrapper } from "../Button";
 import { api } from "../../utils";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -20,6 +21,9 @@ import {
   changePostBodyAction,
   changePostTitleAction
 } from "../../actions/userDetailsAction";
+import { StyledModal } from "./Modal.style";
+import { Form } from "../Form";
+import { Header } from "./Header.style";
 
 export default function ModalComponent() {
   const dispatch = useDispatch();
@@ -71,30 +75,39 @@ export default function ModalComponent() {
 
   return (
     <div>
-      <Modal isOpen={isShowPostModal || isShowCommentModal}>
-        <div>
+      <Modal style={StyledModal} isOpen={isShowPostModal || isShowCommentModal}>
+        <Header>
           {(isShowPostModal && "Add post") ||
             (isShowCommentModal && "Add comment")}
-        </div>
+        </Header>
 
-        <form onSubmit={onSubmitModal}>
+        <Form onSubmit={onSubmitModal}>
           {isShowPostModal && (
             <>
-              Title <input type="text" name="title" onChange={onChangeTitle} />
+              <label>Title</label>
+              <input type="text" name="title" onChange={onChangeTitle} />
             </>
           )}
           {isShowCommentModal && (
             <>
-              Name <input type="text" name="name" onChange={onChangeName} />
-              Email <input type="email" name="email" onChange={onChangeEmail} />
+              <label>Name</label>
+              <input type="text" name="name" onChange={onChangeName} />
+              <label>Email</label>
+              <input type="email" name="email" onChange={onChangeEmail} />
             </>
           )}
-          Body <input type="text" name="body" onChange={onChangeBody} />
-          <button type="button" onClick={onCloseModal}>
-            Cancel
-          </button>
-          <button type="submit">Save</button>
-        </form>
+          <label>Body</label>
+          <input type="text" name="body" onChange={onChangeBody} />
+
+          <ButtonWrapper>
+            <Button type="button" onClick={onCloseModal}>
+              Cancel
+            </Button>
+            <Button isSave type="submit">
+              Save
+            </Button>
+          </ButtonWrapper>
+        </Form>
       </Modal>
     </div>
   );
