@@ -25,6 +25,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Title, Body } from "../../components/Detail";
 import { Content } from "../../components/Detail/Content.style";
+import { Loading } from "../../components/Loading";
 
 export default function PostDetailsPage() {
   const dispatch = useDispatch();
@@ -97,7 +98,7 @@ export default function PostDetailsPage() {
               <ItemDescription>{comment.body}</ItemDescription>
             </Item>
           ))
-        : null}
+        : isLoading && <Loading />}
     </Layout>
   );
 }

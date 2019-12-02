@@ -22,7 +22,7 @@ import {
   changePostTitleAction
 } from "../../actions/userDetailsAction";
 import { StyledModal } from "./Modal.style";
-import { Form } from "../Form";
+import { Form, Wrapper } from "../Form";
 import { Header } from "./Header.style";
 
 export default function ModalComponent() {
@@ -39,8 +39,8 @@ export default function ModalComponent() {
   };
   const onSubmitModal = event => {
     event.preventDefault();
-    if (isShowCommentModal) dispatch(handleComments());
-    if (isShowPostModal) dispatch(handlePosts());
+    if (isShowCommentModal) handleComments();
+    if (isShowPostModal) handlePosts();
   };
   const onChangeTitle = event => dispatch(changePostTitleAction(event.target));
   const onChangeEmail = event =>
@@ -50,28 +50,23 @@ export default function ModalComponent() {
     if (isShowCommentModal) dispatch(changeCommentBodyAction(event.target));
     if (isShowPostModal) dispatch(changePostBodyAction(event.target));
   };
+  const handleComments = async () => {
+    dispatch(addCommentAction());
 
-  function handleComments() {
-    return dispatch => {
-      dispatch(addCommentAction());
+    await axios
+      .post(api.comments)
+      .then(res => dispatch(addCommentSuccessAction(res.data)))
+      .catch(error => dispatch(addCommentErrorAction(error)));
+  };
 
-      axios
-        .post(api.comments)
-        .then(res => dispatch(addCommentSuccessAction(res.data)))
-        .catch(error => dispatch(addCommentErrorAction(error)));
-    };
-  }
+  const handlePosts = async () => {
+    dispatch(addPostAction());
 
-  function handlePosts() {
-    return dispatch => {
-      dispatch(addPostAction());
-
-      axios
-        .post(api.posts)
-        .then(res => dispatch(addPostSuccessAction(res.data)))
-        .catch(error => dispatch(addPostErrorAction(error)));
-    };
-  }
+    await axios
+      .post(api.posts)
+      .then(res => dispatch(addPostSuccessAction(res.data)))
+      .catch(error => dispatch(addPostErrorAction(error)));
+  };
 
   return (
     <div>
@@ -83,27 +78,33 @@ export default function ModalComponent() {
 
         <Form onSubmit={onSubmitModal}>
           {isShowPostModal && (
-            <>
+            <Wrapper>
               <label>Title</label>
               <input type="text" name="title" onChange={onChangeTitle} />
-            </>
+            </Wrapper>
           )}
           {isShowCommentModal && (
             <>
-              <label>Name</label>
-              <input type="text" name="name" onChange={onChangeName} />
-              <label>Email</label>
-              <input type="email" name="email" onChange={onChangeEmail} />
+              <Wrapper>
+                <label>Name</label>
+                <input type="text" name="name" onChange={onChangeName} />
+              </Wrapper>
+              <Wrapper>
+                <label>Email</label>
+                <input type="email" name="email" onChange={onChangeEmail} />
+              </Wrapper>
             </>
           )}
-          <label>Body</label>
-          <input type="text" name="body" onChange={onChangeBody} />
+          <Wrapper>
+            <label>Body</label>
+            <textarea type="text" name="body" onChange={onChangeBody} />
+          </Wrapper>
 
           <ButtonWrapper>
-            <Button type="button" onClick={onCloseModal}>
+            <Button isModal type="button" onClick={onCloseModal}>
               Cancel
             </Button>
-            <Button isSave type="submit">
+            <Button isModal isSave type="submit">
               Save
             </Button>
           </ButtonWrapper>

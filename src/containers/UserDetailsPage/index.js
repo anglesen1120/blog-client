@@ -25,6 +25,7 @@ import {
   faChevronRight
 } from "@fortawesome/free-solid-svg-icons";
 import { Action } from "../../components/Header/Action.style";
+import { Loading } from "../../components/Loading";
 
 export default function UserDetailsPage() {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ export default function UserDetailsPage() {
   const user = useSelector(state =>
     state.homeReducer.usersData.find(({ id }) => id === parseInt(userId, 10))
   );
-  const onRemovePost = postId => dispatch(handlePost(postId));
+  const onRemovePost = postId => handlePost(postId);
   const onOpenPostModal = () => dispatch(openPostModalAction());
   const handleUserDetailsData = async () => {
     dispatch(loadUserDetailsDataAction());
@@ -75,27 +76,29 @@ export default function UserDetailsPage() {
         </Action>
       </Header>
 
-      {!isLoading && userDetailsData.length
-        ? userDetailsData.map(userDetailData => (
-            <Item isUserDetail key={userDetailData.id}>
-              <div>
-                <FontAwesomeIcon
-                  onClick={() => onRemovePost(userDetailData.id)}
-                  size="lg"
-                  icon={faTrashAlt}
-                />
+      {!isLoading && userDetailsData.length ? (
+        userDetailsData.map(userDetailData => (
+          <Item isUserDetail key={userDetailData.id}>
+            <div>
+              <FontAwesomeIcon
+                onClick={() => onRemovePost(userDetailData.id)}
+                size="lg"
+                icon={faTrashAlt}
+              />
 
-                <LinkWrapper
-                  to={`/user/${userDetailData.userId}/${userDetailData.id}`}
-                >
-                  <span>{userDetailData.title}</span>
-                </LinkWrapper>
-              </div>
+              <LinkWrapper
+                to={`/user/${userDetailData.userId}/${userDetailData.id}`}
+              >
+                <span>{userDetailData.title}</span>
+              </LinkWrapper>
+            </div>
 
-              <FontAwesomeIcon size="lg" icon={faChevronRight} />
-            </Item>
-          ))
-        : null}
+            <FontAwesomeIcon size="lg" icon={faChevronRight} />
+          </Item>
+        ))
+      ) : (
+        <Loading />
+      )}
     </Layout>
   );
 }

@@ -18,6 +18,8 @@ import {
 import { Button, ButtonWrapper } from "../../components/Button";
 import { LinkWrapper } from "../../components/Link";
 import { Layout } from "../../components/Layout";
+import { Loading } from "../../components/Loading";
+import { Wrapper } from "../../components/Form";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -39,30 +41,34 @@ export default function HomePage() {
   return (
     <Layout>
       <Listing>
-        {!isLoading && usersData.length
-          ? usersData.map(userData => (
-              <Item key={userData.id}>
-                <ItemTitle>{userData.name}</ItemTitle>
-                <ItemContact>
-                  <div>{userData.email}</div>
-                  <div>{userData.phone}</div>
-                  <div>{userData.website}</div>
-                </ItemContact>
+        {!isLoading && usersData.length ? (
+          usersData.map(userData => (
+            <Item key={userData.id}>
+              <ItemTitle>{userData.name}</ItemTitle>
+              <ItemContact>
+                <div>{userData.email}</div>
+                <div>{userData.phone}</div>
+                <div>{userData.website}</div>
+              </ItemContact>
 
-                <ItemDescription>
-                  <div>{userData.company.name}</div>
-                  <div>{userData.company.catchPhrase}</div>
-                  <div>{userData.company.bs}</div>
-                </ItemDescription>
+              <ItemDescription>
+                <div>{userData.company.name}</div>
+                <div>{userData.company.catchPhrase}</div>
+                <div>{userData.company.bs}</div>
+              </ItemDescription>
 
-                <ButtonWrapper>
-                  <LinkWrapper to={`/user/${userData.id}`}>
-                    <Button>Details</Button>
-                  </LinkWrapper>
-                </ButtonWrapper>
-              </Item>
-            ))
-          : null}
+              <ButtonWrapper isHome>
+                <LinkWrapper to={`/user/${userData.id}`}>
+                  <Button>Details</Button>
+                </LinkWrapper>
+              </ButtonWrapper>
+            </Item>
+          ))
+        ) : (
+          <Wrapper isLoading>
+            <Loading />
+          </Wrapper>
+        )}
       </Listing>
     </Layout>
   );
