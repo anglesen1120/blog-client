@@ -18,6 +18,13 @@ import {
   ItemDescription
 } from "../../components/Listing";
 import { LinkWrapper } from "../../components/Link";
+import { Layout } from "../../components/Layout";
+import { Header, Empty, Wrapper } from "../../components/Header";
+import { Action } from "../../components/Header/Action.style";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { Title, Body } from "../../components/Detail";
+import { Content } from "../../components/Detail/Content.style";
 
 export default function PostDetailsPage() {
   const dispatch = useDispatch();
@@ -27,61 +34,70 @@ export default function PostDetailsPage() {
   const isShowComments = useSelector(
     state => state.postDetailsReducer.isShowComments
   );
-  const userDetailsData = useSelector(
-    state => state.userDetailsReducer.userDetailsData[postId - 1]
+  const userDetailsData = useSelector(state =>
+    state.userDetailsReducer.userDetailsData.find(
+      ({ id }) => id === parseInt(postId, 10)
+    )
   );
-  const userName = useSelector(
-    state => state.homeReducer.usersData[userId - 1].name
+  const user = useSelector(state =>
+    state.homeReducer.usersData.find(({ id }) => id === parseInt(userId, 10))
   );
   const handleToggleComments = () => {
     dispatch(toggleShowCommentsAction());
-    if (!isShowComments) dispatch(handleComments());
+    if (!isShowComments) handleComments();
   };
   const handleAddComment = () => dispatch(openCommentModalAction());
+  const handleComments = async () => {
+    dispatch(getCommentsAction());
 
-  function handleComments() {
-    return dispatch => {
-      dispatch(getCommentsAction());
-
-      axios
-        .get(`${api.comments}?postId=${postId}`)
-        .then(res => dispatch(getCommentsSuccessAction(res.data)))
-        .catch(error => dispatch(getCommentsErrorAction(error)));
-    };
-  }
+    await axios
+      .get(`${api.comments}?postId=${postId}`)
+      .then(res => dispatch(getCommentsSuccessAction(res.data)))
+      .catch(error => dispatch(getCommentsErrorAction(error)));
+  };
 
   return (
-    <div>
-      <div>{userName}</div>
-      <LinkWrapper to={`/user/${userId}`}>
-        <div>back</div>
-      </LinkWrapper>
+    <Layout>
+      <Header>
+        <LinkWrapper to={`/user/${userId}`}>
+          <Action>
+            <FontAwesomeIcon size="lg" icon={faArrowLeft} /> <span>Back</span>
+          </Action>
+        </LinkWrapper>
 
-      <div>{userDetailsData && userDetailsData.title}</div>
-      <div>{userDetailsData && userDetailsData.body}</div>
+        <ItemTitle>{user.name}</ItemTitle>
 
-      <div>
-        <div onClick={handleToggleComments}>
+        <Empty />
+      </Header>
+
+      <Content>
+        <Title>{userDetailsData.title}</Title>
+        <Body>{userDetailsData.body}</Body>
+      </Content>
+
+      <Wrapper>
+        <ItemContact onClick={handleToggleComments}>
           {isShowComments ? "Hide comments" : "Show comments"}
-        </div>
+        </ItemContact>
+
         {isShowComments ? (
-          <div onClick={handleAddComment}>Add comment</div>
+          <ItemContact onClick={handleAddComment}>Add comment</ItemContact>
         ) : (
-          <div />
+          <Empty />
         )}
-      </div>
+      </Wrapper>
 
       {!isLoading && comments.length && isShowComments
         ? comments.map(comment => (
-            <Item key={comment.id}>
-              <div>
+            <Item isPostComment key={comment.id}>
+              <Wrapper isPostComment>
                 <ItemTitle>{comment.name}</ItemTitle>
                 <ItemContact>{comment.email}</ItemContact>
-              </div>
+              </Wrapper>
               <ItemDescription>{comment.body}</ItemDescription>
             </Item>
           ))
         : null}
-    </div>
+    </Layout>
   );
 }

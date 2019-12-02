@@ -33,36 +33,30 @@ export default function UserDetailsPage() {
   const userDetailsData = useSelector(
     state => state.userDetailsReducer.userDetailsData
   );
-  const userName = useSelector(
-    state => state.homeReducer.usersData[userId - 1].name
+  const user = useSelector(state =>
+    state.homeReducer.usersData.find(({ id }) => id === parseInt(userId, 10))
   );
   const onRemovePost = postId => dispatch(handlePost(postId));
   const onOpenPostModal = () => dispatch(openPostModalAction());
+  const handleUserDetailsData = async () => {
+    dispatch(loadUserDetailsDataAction());
 
-  function handleUserDetailsData() {
-    return dispatch => {
-      dispatch(loadUserDetailsDataAction());
+    await axios
+      .get(`${api.posts}?userId=${userId}`)
+      .then(res => dispatch(loadUserDetailsDataSuccessAction(res.data)))
+      .catch(error => dispatch(loadUserDetailsDataErrorAction(error)));
+  };
+  const handlePost = async postId => {
+    dispatch(removePostAction());
 
-      axios
-        .get(`${api.posts}?userId=${userId}`)
-        .then(res => dispatch(loadUserDetailsDataSuccessAction(res.data)))
-        .catch(error => dispatch(loadUserDetailsDataErrorAction(error)));
-    };
-  }
-
-  function handlePost(postId) {
-    return dispatch => {
-      dispatch(removePostAction());
-
-      axios
-        .delete(`${api.posts}/${postId}`)
-        .then(res => dispatch(removePostSuccessAction(postId)))
-        .catch(error => dispatch(removePostErrorAction(error)));
-    };
-  }
+    await axios
+      .delete(`${api.posts}/${postId}`)
+      .then(res => dispatch(removePostSuccessAction(postId)))
+      .catch(error => dispatch(removePostErrorAction(error)));
+  };
 
   useEffect(() => {
-    dispatch(handleUserDetailsData());
+    handleUserDetailsData();
   }, []);
 
   return (
@@ -74,7 +68,7 @@ export default function UserDetailsPage() {
           </Action>
         </LinkWrapper>
 
-        <ItemTitle>{userName}</ItemTitle>
+        <ItemTitle>{user.name}</ItemTitle>
 
         <Action onClick={onOpenPostModal}>
           <FontAwesomeIcon size="lg" icon={faPlusCircle} />

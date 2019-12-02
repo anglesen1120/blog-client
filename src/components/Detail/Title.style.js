@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ItemTitle = styled.section`
+export const Title = styled.section`
+  font-size: 20px;
   font-weight: 700;
-  text-align: left;
 `;

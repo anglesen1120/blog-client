@@ -12,6 +12,7 @@ import {
   ADD_COMMENT_SUCCESS,
   ADD_COMMENT_ERROR
 } from "../actions/postDetailsAction";
+import { LOAD_USER_DETAILS_DATA } from "../actions/userDetailsAction";
 
 const initialState = {
   isShowModal: false,
@@ -25,6 +26,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case LOAD_USER_DETAILS_DATA:
+      return {
+        ...state,
+        comments: initialState.comments,
+        isShowComments: initialState.isShowComments
+      };
     case TOGGLE_SHOW_COMMENTS:
       return {
         ...state,

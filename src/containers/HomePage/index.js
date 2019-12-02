@@ -23,20 +23,17 @@ export default function HomePage() {
   const dispatch = useDispatch();
   const isLoading = useSelector(state => state.homeReducer.isLoading);
   const usersData = useSelector(state => state.homeReducer.usersData);
+  const handleUsersData = async () => {
+    dispatch(loadUsersDataAction());
 
-  function handleUsersData() {
-    return dispatch => {
-      dispatch(loadUsersDataAction());
-
-      axios
-        .get(api.users)
-        .then(res => dispatch(loadUsersDataSuccessAction(res.data)))
-        .catch(error => dispatch(loadUsersDataErrorAction(error)));
-    };
-  }
+    await axios
+      .get(api.users)
+      .then(res => dispatch(loadUsersDataSuccessAction(res.data)))
+      .catch(error => dispatch(loadUsersDataErrorAction(error)));
+  };
 
   useEffect(() => {
-    dispatch(handleUsersData());
+    handleUsersData();
   }, []);
 
   return (
