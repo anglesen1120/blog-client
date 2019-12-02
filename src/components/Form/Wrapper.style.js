@@ -6,4 +6,6 @@ export const Wrapper = styled.section`
   justify-content: space-between;
   align-items: center;
   width: ${props => props.isLoading && "100%"};
+
+  margin-bottom: 5px;
 `;

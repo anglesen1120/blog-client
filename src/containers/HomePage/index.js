@@ -43,7 +43,7 @@ export default function HomePage() {
       <Listing>
         {!isLoading && usersData.length ? (
           usersData.map(userData => (
-            <Item key={userData.id}>
+            <Item isHome key={userData.id}>
               <ItemTitle>{userData.name}</ItemTitle>
               <ItemContact>
                 <div>{userData.email}</div>

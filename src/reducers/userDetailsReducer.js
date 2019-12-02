@@ -19,7 +19,8 @@ const initialState = {
   isShowModal: false,
   userDetailsData: [],
   title: "",
-  body: ""
+  body: "",
+  errors: {}
 };
 
 export default (state = initialState, action) => {
@@ -43,7 +44,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload
+        errors: action.payload
       };
     case REMOVE_POST_SUCCESS:
       return {
@@ -57,7 +58,9 @@ export default (state = initialState, action) => {
     case CANCEL_POST:
       return {
         ...state,
-        isShowModal: !state.isShowModal
+        isShowModal: !state.isShowModal,
+        body: initialState.body,
+        title: initialState.title
       };
     case CHANGE_POST_TITLE:
     case CHANGE_POST_BODY:

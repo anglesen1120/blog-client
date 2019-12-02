@@ -9,6 +9,8 @@ export const Item = styled.div`
   display: ${props => (props.isUserDetail ? "flex" : "block")};
   justify-content: space-between;
   color: ${props => props.isUserDetail && colors.blue_secondary};
+  position: relative;
+  width: ${props => props.isHome && "100%"};
 
   svg {
     &:hover {
@@ -17,7 +19,7 @@ export const Item = styled.div`
   }
 
   span {
-    margin-left: 5px;
+    margin-left: 10px;
   }
 
   ${media.tablet`

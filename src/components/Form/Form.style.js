@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { colors } from "../../utils";
 
 export const Form = styled.form`
-  padding: 20px;
+  min-width: 250px;
+  height: 100%;
 
   input,
   textarea {
@@ -10,6 +11,7 @@ export const Form = styled.form`
     display: block;
     max-width: 230px;
     width: 100%;
+    min-height: 30px;
   }
 
   textarea {

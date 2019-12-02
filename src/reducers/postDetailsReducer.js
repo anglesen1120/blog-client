@@ -21,7 +21,8 @@ const initialState = {
   comments: [],
   email: "",
   body: "",
-  name: ""
+  name: "",
+  errors: {}
 };
 
 export default (state = initialState, action) => {
@@ -54,13 +55,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        error: action.payload
+        errors: action.payload
       };
     case CANCEL_COMMENT:
     case OPEN_COMMENT_MODAL:
       return {
         ...state,
-        isShowModal: !state.isShowModal
+        isShowModal: !state.isShowModal,
+        email: initialState.email,
+        body: initialState.body,
+        name: initialState.name
       };
     case CHANGE_COMMENT_BODY:
     case CHANGE_COMMENT_EMAIL:
@@ -88,6 +92,7 @@ export default (state = initialState, action) => {
         body: initialState.body,
         isShowModal: false
       };
+
     default:
       return state;
   }

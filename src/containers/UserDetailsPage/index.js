@@ -26,6 +26,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Action } from "../../components/Header/Action.style";
 import { Loading } from "../../components/Loading";
+import { LinkTitle } from "../../components/Link/LinkTitle.style";
 
 export default function UserDetailsPage() {
   const dispatch = useDispatch();
@@ -89,7 +90,7 @@ export default function UserDetailsPage() {
               <LinkWrapper
                 to={`/user/${userDetailData.userId}/${userDetailData.id}`}
               >
-                <span>{userDetailData.title}</span>
+                <LinkTitle>{userDetailData.title}</LinkTitle>
               </LinkWrapper>
             </div>
 

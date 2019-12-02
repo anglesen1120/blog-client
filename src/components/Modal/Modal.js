@@ -33,6 +33,7 @@ export default function ModalComponent() {
   const isShowCommentModal = useSelector(
     state => state.postDetailsReducer.isShowModal
   );
+
   const onCloseModal = () => {
     if (isShowCommentModal) dispatch(cancelCommentAction());
     if (isShowPostModal) dispatch(cancelPostAction());
@@ -91,7 +92,18 @@ export default function ModalComponent() {
               </Wrapper>
               <Wrapper>
                 <label>Email</label>
-                <input type="email" name="email" onChange={onChangeEmail} />
+                <input
+                  type="email"
+                  name="email"
+                  onChange={onChangeEmail}
+                  ref={register({
+                    required: "Required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                      message: "invalid email address"
+                    }
+                  })}
+                />
               </Wrapper>
             </>
           )}
