@@ -51,22 +51,26 @@ export const openPostModalAction = () => dispatch => {
   });
 };
 
-export const changePostTitleAction = title => dispatch => {
+export const changePostTitleAction = postTitle => dispatch => {
+  const { name, value } = postTitle;
+
   dispatch({
     type: CHANGE_POST_TITLE,
     payload: {
-      name: title.name,
-      value: title.value
+      name,
+      value
     }
   });
 };
 
-export const changePostBodyAction = body => dispatch => {
+export const changePostBodyAction = postBody => dispatch => {
+  const { name, value } = postBody;
+
   dispatch({
     type: CHANGE_POST_BODY,
     payload: {
-      name: body.name,
-      value: body.value
+      name,
+      value
     }
   });
 };
@@ -87,9 +91,7 @@ export const addPostSuccessAction = id => dispatch => {
 export const addPostErrorAction = error => dispatch => {
   dispatch({
     type: ADD_POST_ERROR,
-    payload: {
-      error
-    }
+    payload: error
   });
 };
 

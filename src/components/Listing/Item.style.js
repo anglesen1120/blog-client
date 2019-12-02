@@ -10,7 +10,7 @@ export const Item = styled.div`
   justify-content: space-between;
   color: ${props => props.isUserDetail && colors.blue_secondary};
   position: relative;
-  width: ${props => props.isHome && "100%"};
+  // width: ${props => props.isHome && "100%"};
 
   svg {
     &:hover {
@@ -22,11 +22,11 @@ export const Item = styled.div`
     margin-left: 10px;
   }
 
-  ${media.tablet`
-    width: ${props => !props.isUserDetail && !props.isPostComment && "25%"}
-  `}
+  // ${media.tablet`
+  //   width: ${props => !props.isUserDetail && !props.isPostComment && "25%"}
+  // `}
 
-  ${media.desktop`
-    width: ${props => !props.isUserDetail && !props.isPostComment && "20%"}
-  `};
+  // ${media.desktop`
+  //   width: ${props => !props.isUserDetail && !props.isPostComment && "20%"}
+  // `};
 `;

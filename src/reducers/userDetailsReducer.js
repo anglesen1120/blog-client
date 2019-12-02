@@ -20,7 +20,7 @@ const initialState = {
   userDetailsData: [],
   title: "",
   body: "",
-  errors: {}
+  error: ""
 };
 
 export default (state = initialState, action) => {
@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        errors: action.payload
+        error: action.payload
       };
     case REMOVE_POST_SUCCESS:
       return {
@@ -60,13 +60,15 @@ export default (state = initialState, action) => {
         ...state,
         isShowModal: !state.isShowModal,
         body: initialState.body,
-        title: initialState.title
+        title: initialState.title,
+        error: initialState.error
       };
     case CHANGE_POST_TITLE:
     case CHANGE_POST_BODY:
       return {
         ...state,
-        [action.payload.name]: action.payload.value
+        [action.payload.name]: action.payload.value,
+        error: initialState.error
       };
     case ADD_POST_SUCCESS:
       const [{ userId }] = state.userDetailsData;

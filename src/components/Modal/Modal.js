@@ -24,6 +24,7 @@ import {
 import { StyledModal } from "./Modal.style";
 import { Form, Wrapper } from "../Form";
 import { Header } from "./Header.style";
+import { ErrorWrapper } from "../Error";
 
 export default function ModalComponent() {
   const dispatch = useDispatch();
@@ -33,6 +34,13 @@ export default function ModalComponent() {
   const isShowCommentModal = useSelector(
     state => state.postDetailsReducer.isShowModal
   );
+  const commentEmail = useSelector(state => state.postDetailsReducer.email);
+  const commentBody = useSelector(state => state.postDetailsReducer.body);
+  const commentName = useSelector(state => state.postDetailsReducer.name);
+  const commentError = useSelector(state => state.postDetailsReducer.error);
+  const postBody = useSelector(state => state.userDetailsReducer.body);
+  const postTitle = useSelector(state => state.userDetailsReducer.title);
+  const postError = useSelector(state => state.userDetailsReducer.error);
 
   const onCloseModal = () => {
     if (isShowCommentModal) dispatch(cancelCommentAction());
@@ -40,8 +48,17 @@ export default function ModalComponent() {
   };
   const onSubmitModal = event => {
     event.preventDefault();
-    if (isShowCommentModal) handleComments();
-    if (isShowPostModal) handlePosts();
+    if (isShowCommentModal) {
+      if (!commentBody || !commentEmail || commentName) {
+        dispatch(addCommentErrorAction("Empty data"));
+      } else handleComments();
+    }
+
+    if (isShowPostModal) {
+      if (!postBody || !postTitle) {
+        dispatch(addPostErrorAction("Empty data"));
+      } else handlePosts();
+    }
   };
   const onChangeTitle = event => dispatch(changePostTitleAction(event.target));
   const onChangeEmail = event =>
@@ -77,29 +94,57 @@ export default function ModalComponent() {
             (isShowCommentModal && "Add comment")}
         </Header>
 
-        <Form onSubmit={onSubmitModal}>
+        <Form
+          noValidate
+          onSubmit={onSubmitModal}
+          isError={commentError || postError}
+        >
           {isShowPostModal && (
             <Wrapper>
               <label>Title</label>
-              <input type="text" name="title" onChange={onChangeTitle} />
+              <input
+                required
+                type="text"
+                name="title"
+                onChange={onChangeTitle}
+              />
             </Wrapper>
           )}
           {isShowCommentModal && (
             <>
               <Wrapper>
                 <label>Name</label>
-                <input type="text" name="name" onChange={onChangeName} />
+                <input
+                  required
+                  type="text"
+                  name="name"
+                  onChange={onChangeName}
+                />
               </Wrapper>
               <Wrapper>
                 <label>Email</label>
-                <input type="email" name="email" onChange={onChangeEmail} />
+                <input
+                  required
+                  type="email"
+                  name="email"
+                  onChange={onChangeEmail}
+                />
               </Wrapper>
             </>
           )}
           <Wrapper>
             <label>Body</label>
-            <textarea type="text" name="body" onChange={onChangeBody} />
+            <textarea
+              required
+              type="text"
+              name="body"
+              onChange={onChangeBody}
+            />
           </Wrapper>
+
+          {(postError || commentError) && (
+            <ErrorWrapper>{postError || commentError}</ErrorWrapper>
+          )}
 
           <ButtonWrapper>
             <Button isModal type="button" onClick={onCloseModal}>

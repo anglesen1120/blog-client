@@ -7,7 +7,7 @@ export const Form = styled.form`
 
   input,
   textarea {
-    border: 2px solid ${colors.black};
+    border: 2px solid ${props => (props.isError ? colors.red : colors.black)};
     display: block;
     max-width: 230px;
     width: 100%;
@@ -16,6 +16,7 @@ export const Form = styled.form`
 
   textarea {
     resize: none;
+    min-height: 60px;
   }
 
   label {

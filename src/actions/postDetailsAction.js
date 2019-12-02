@@ -46,22 +46,26 @@ export const openCommentModalAction = () => dispatch => {
   });
 };
 
-export const changeCommentNameAction = name => dispatch => {
+export const changeCommentNameAction = commentName => dispatch => {
+  const { name, value } = commentName;
+
   dispatch({
     type: CHANGE_COMMENT_NAME,
     payload: {
-      name: name.name,
-      value: name.value
+      name,
+      value
     }
   });
 };
 
-export const changeCommentEmailAction = email => dispatch => {
+export const changeCommentEmailAction = commentEmail => dispatch => {
+  const { name, value } = commentEmail;
+
   dispatch({
     type: CHANGE_COMMENT_EMAIL,
     payload: {
-      name: email.name,
-      value: email.value
+      name,
+      value
     }
   });
 };

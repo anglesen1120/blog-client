@@ -22,7 +22,7 @@ const initialState = {
   email: "",
   body: "",
   name: "",
-  errors: {}
+  error: ""
 };
 
 export default (state = initialState, action) => {
@@ -55,7 +55,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        errors: action.payload
+        error: action.payload
       };
     case CANCEL_COMMENT:
     case OPEN_COMMENT_MODAL:
@@ -64,14 +64,16 @@ export default (state = initialState, action) => {
         isShowModal: !state.isShowModal,
         email: initialState.email,
         body: initialState.body,
-        name: initialState.name
+        name: initialState.name,
+        error: initialState.error
       };
     case CHANGE_COMMENT_BODY:
     case CHANGE_COMMENT_EMAIL:
     case CHANGE_COMMENT_NAME:
       return {
         ...state,
-        [action.payload.name]: action.payload.value
+        [action.payload.name]: action.payload.value,
+        error: initialState.error
       };
     case ADD_COMMENT_SUCCESS:
       const [{ postId }] = state.comments;
