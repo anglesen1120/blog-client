@@ -49,7 +49,7 @@ export default function ModalComponent() {
   const onSubmitModal = event => {
     event.preventDefault();
     if (isShowCommentModal) {
-      if (!commentBody || !commentEmail || commentName) {
+      if (!commentBody || !commentEmail || !commentName) {
         dispatch(addCommentErrorAction("Empty data"));
       } else handleComments();
     }
