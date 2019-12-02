@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ItemCompany = styled.section`
+export const ItemDescription = styled.section`
   text-align: left;
   margin: 15px 0 30px;
 

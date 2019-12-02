@@ -38,16 +38,13 @@ export default function ModalComponent() {
     if (isShowCommentModal) dispatch(handleComments());
     if (isShowPostModal) dispatch(handlePosts());
   };
-  const onChangeTitle = event =>
-    dispatch(changePostTitleAction(event.target.value));
+  const onChangeTitle = event => dispatch(changePostTitleAction(event.target));
   const onChangeEmail = event =>
-    dispatch(changeCommentEmailAction(event.target.value));
-  const onChangeName = event =>
-    dispatch(changeCommentNameAction(event.target.value));
+    dispatch(changeCommentEmailAction(event.target));
+  const onChangeName = event => dispatch(changeCommentNameAction(event.target));
   const onChangeBody = event => {
-    if (isShowCommentModal)
-      dispatch(changeCommentBodyAction(event.target.value));
-    if (isShowPostModal) dispatch(changePostBodyAction(event.target.value));
+    if (isShowCommentModal) dispatch(changeCommentBodyAction(event.target));
+    if (isShowPostModal) dispatch(changePostBodyAction(event.target));
   };
 
   function handleComments() {
@@ -83,16 +80,16 @@ export default function ModalComponent() {
         <form onSubmit={onSubmitModal}>
           {isShowPostModal && (
             <>
-              Title <input type="text" onChange={onChangeTitle} />
+              Title <input type="text" name="title" onChange={onChangeTitle} />
             </>
           )}
           {isShowCommentModal && (
             <>
-              Name <input type="text" onChange={onChangeName} />
-              Email <input type="email" onChange={onChangeEmail} />
+              Name <input type="text" name="name" onChange={onChangeName} />
+              Email <input type="email" name="email" onChange={onChangeEmail} />
             </>
           )}
-          Body <input type="text" onChange={onChangeBody} />
+          Body <input type="text" name="body" onChange={onChangeBody} />
           <button type="button" onClick={onCloseModal}>
             Cancel
           </button>

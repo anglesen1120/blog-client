@@ -7,7 +7,10 @@ import {
   OPEN_COMMENT_MODAL,
   CHANGE_COMMENT_EMAIL,
   CHANGE_COMMENT_BODY,
-  CHANGE_COMMENT_NAME
+  CHANGE_COMMENT_NAME,
+  ADD_COMMENT,
+  ADD_COMMENT_SUCCESS,
+  ADD_COMMENT_ERROR
 } from "../actions/postDetailsAction";
 
 const initialState = {
@@ -28,6 +31,7 @@ export default (state = initialState, action) => {
         isShowComments: !state.isShowComments
       };
     case GET_COMMENTS:
+    case ADD_COMMENT:
       return {
         ...state,
         isLoading: true
@@ -36,9 +40,10 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        comments: action.payload[0]
+        comments: action.payload
       };
     case GET_COMMENTS_ERROR:
+    case ADD_COMMENT_ERROR:
       return {
         ...state,
         isLoading: false,
@@ -51,19 +56,30 @@ export default (state = initialState, action) => {
         isShowModal: !state.isShowModal
       };
     case CHANGE_COMMENT_BODY:
-      return {
-        ...state,
-        body: action.payload
-      };
     case CHANGE_COMMENT_EMAIL:
-      return {
-        ...state,
-        email: action.payload
-      };
     case CHANGE_COMMENT_NAME:
       return {
         ...state,
-        name: action.payload
+        [action.payload.name]: action.payload.value
+      };
+    case ADD_COMMENT_SUCCESS:
+      const [{ postId }] = state.comments;
+      const newComment = {
+        postId,
+        id: action.payload.id,
+        name: state.name,
+        email: state.email,
+        body: state.body
+      };
+
+      return {
+        ...state,
+        isLoading: false,
+        comments: [...state.comments, newComment],
+        name: initialState.name,
+        email: initialState.email,
+        body: initialState.body,
+        isShowModal: false
       };
     default:
       return state;

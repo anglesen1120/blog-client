@@ -54,14 +54,20 @@ export const openPostModalAction = () => dispatch => {
 export const changePostTitleAction = title => dispatch => {
   dispatch({
     type: CHANGE_POST_TITLE,
-    payload: title
+    payload: {
+      name: title.name,
+      value: title.value
+    }
   });
 };
 
 export const changePostBodyAction = body => dispatch => {
   dispatch({
     type: CHANGE_POST_BODY,
-    payload: body
+    payload: {
+      name: body.name,
+      value: body.value
+    }
   });
 };
 
@@ -71,9 +77,10 @@ export const addPostAction = () => dispatch => {
   });
 };
 
-export const addPostSuccessAction = () => dispatch => {
+export const addPostSuccessAction = id => dispatch => {
   dispatch({
-    type: ADD_POST_SUCCESS
+    type: ADD_POST_SUCCESS,
+    payload: id
   });
 };
 
@@ -98,16 +105,16 @@ export const removePostAction = () => dispatch => {
   });
 };
 
-export const removePostSuccessAction = postId => dispatch => {
+export const removePostSuccessAction = id => dispatch => {
   dispatch({
     type: REMOVE_POST_SUCCESS,
-    payload: postId
+    payload: id
   });
 };
 
 export const removePostErrorAction = error => dispatch => {
   dispatch({
     type: REMOVE_POST_ERROR,
-    payload: { error }
+    payload: error
   });
 };

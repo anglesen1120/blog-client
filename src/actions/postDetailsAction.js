@@ -23,16 +23,14 @@ export const getCommentsAction = () => dispatch => {
 export const getCommentsSuccessAction = comments => dispatch => {
   dispatch({
     type: GET_COMMENTS_SUCCESS,
-    payload: [comments]
+    payload: comments
   });
 };
 
 export const getCommentsErrorAction = error => dispatch => {
   dispatch({
     type: GET_COMMENTS_ERROR,
-    payload: {
-      error
-    }
+    payload: error
   });
 };
 
@@ -51,21 +49,30 @@ export const openCommentModalAction = () => dispatch => {
 export const changeCommentNameAction = name => dispatch => {
   dispatch({
     type: CHANGE_COMMENT_NAME,
-    payload: name
+    payload: {
+      name: name.name,
+      value: name.value
+    }
   });
 };
 
 export const changeCommentEmailAction = email => dispatch => {
   dispatch({
     type: CHANGE_COMMENT_EMAIL,
-    payload: email
+    payload: {
+      name: email.name,
+      value: email.value
+    }
   });
 };
 
 export const changeCommentBodyAction = body => dispatch => {
   dispatch({
     type: CHANGE_COMMENT_BODY,
-    payload: body
+    payload: {
+      name: body.name,
+      value: body.value
+    }
   });
 };
 
@@ -75,18 +82,17 @@ export const addCommentAction = () => dispatch => {
   });
 };
 
-export const addCommentSuccessAction = () => dispatch => {
+export const addCommentSuccessAction = id => dispatch => {
   dispatch({
-    type: ADD_COMMENT_SUCCESS
+    type: ADD_COMMENT_SUCCESS,
+    payload: id
   });
 };
 
 export const addCommentErrorAction = error => dispatch => {
   dispatch({
     type: ADD_COMMENT_ERROR,
-    payload: {
-      error
-    }
+    payload: error
   });
 };
 

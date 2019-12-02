@@ -59,22 +59,28 @@ export default (state = initialState, action) => {
         ...state,
         isShowModal: !state.isShowModal
       };
+    case CHANGE_POST_TITLE:
     case CHANGE_POST_BODY:
       return {
         ...state,
-        body: action.payload
-      };
-    case CHANGE_POST_TITLE:
-      return {
-        ...state,
-        title: action.payload
+        [action.payload.name]: action.payload.value
       };
     case ADD_POST_SUCCESS:
+      const [{ userId }] = state.userDetailsData;
+      const newPost = {
+        userId,
+        id: action.payload.id,
+        title: state.title,
+        body: state.body
+      };
+
       return {
+        ...state,
         isLoading: false,
-        userDetailsData: {
-          //todo: add item to array
-        }
+        userDetailsData: [...state.userDetailsData, newPost],
+        title: initialState.title,
+        body: initialState.body,
+        isShowModal: false
       };
     default:
       return state;

@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        usersData: action.payload[0]
+        usersData: action.payload
       };
     case LOAD_USERS_DATA_ERROR:
       return {

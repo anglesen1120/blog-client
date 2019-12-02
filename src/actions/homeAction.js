@@ -11,15 +11,13 @@ export const loadUsersDataAction = () => dispatch => {
 export const loadUsersDataSuccessAction = usersData => dispatch => {
   dispatch({
     type: LOAD_USERS_DATA_SUCCESS,
-    payload: [usersData]
+    payload: usersData
   });
 };
 
 export const loadUsersDataErrorAction = error => dispatch => {
   dispatch({
     type: LOAD_USERS_DATA_ERROR,
-    payload: {
-      error
-    }
+    payload: error
   });
 };

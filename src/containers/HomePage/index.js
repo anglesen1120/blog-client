@@ -11,9 +11,9 @@ import axios from "axios";
 import {
   Listing,
   Item,
-  ItemName,
+  ItemTitle,
   ItemContact,
-  ItemCompany
+  ItemDescription
 } from "../../components/Listing";
 import { Button, ButtonWrapper } from "../../components/Button";
 import { LinkWrapper } from "../../components/Link";
@@ -43,18 +43,18 @@ export default function HomePage() {
       {!isLoading && usersData.length
         ? usersData.map(userData => (
             <Item key={userData.id}>
-              <ItemName>{userData.name}</ItemName>
+              <ItemTitle>{userData.name}</ItemTitle>
               <ItemContact>
                 <div>{userData.email}</div>
                 <div>{userData.phone}</div>
                 <div>{userData.website}</div>
               </ItemContact>
 
-              <ItemCompany>
+              <ItemDescription>
                 <div>{userData.company.name}</div>
                 <div>{userData.company.catchPhrase}</div>
                 <div>{userData.company.bs}</div>
-              </ItemCompany>
+              </ItemDescription>
 
               <ButtonWrapper>
                 <LinkWrapper to={`/user/${userData.id}`}>

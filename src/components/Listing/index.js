@@ -1,7 +1,7 @@
 import { Listing } from "./Listing.style";
 import { Item } from "./Item.style";
-import { ItemName } from "./ItemName.style";
+import { ItemTitle } from "./ItemTitle.style";
 import { ItemContact } from "./ItemContact.style";
-import { ItemCompany } from "./ItemCompany.style";
+import { ItemDescription } from "./ItemDescription.style";
 
-export { Listing, Item, ItemName, ItemContact, ItemCompany };
+export { Listing, Item, ItemTitle, ItemContact, ItemDescription };

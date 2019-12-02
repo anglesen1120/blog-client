@@ -13,9 +13,9 @@ import {
 } from "../../actions/postDetailsAction";
 import {
   Item,
-  ItemName,
+  ItemTitle,
   ItemContact,
-  ItemCompany
+  ItemDescription
 } from "../../components/Listing";
 import { LinkWrapper } from "../../components/Link";
 
@@ -75,10 +75,10 @@ export default function PostDetailsPage() {
         ? comments.map(comment => (
             <Item key={comment.id}>
               <div>
-                <ItemName>{comment.name}</ItemName>
+                <ItemTitle>{comment.name}</ItemTitle>
                 <ItemContact>{comment.email}</ItemContact>
               </div>
-              <ItemCompany>{comment.body}</ItemCompany>
+              <ItemDescription>{comment.body}</ItemDescription>
             </Item>
           ))
         : null}
