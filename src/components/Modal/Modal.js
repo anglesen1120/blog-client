@@ -7,13 +7,18 @@ import {
   cancelCommentAction,
   addCommentAction,
   addCommentSuccessAction,
-  addCommentErrorAction
+  addCommentErrorAction,
+  changeCommentEmailAction,
+  changeCommentBodyAction,
+  changeCommentNameAction
 } from "../../actions/postDetailsAction";
 import {
   cancelPostAction,
   addPostAction,
   addPostSuccessAction,
-  addPostErrorAction
+  addPostErrorAction,
+  changePostBodyAction,
+  changePostTitleAction
 } from "../../actions/userDetailsAction";
 
 export default function ModalComponent() {
@@ -32,6 +37,17 @@ export default function ModalComponent() {
     event.preventDefault();
     if (isShowCommentModal) dispatch(handleComments());
     if (isShowPostModal) dispatch(handlePosts());
+  };
+  const onChangeTitle = event =>
+    dispatch(changePostTitleAction(event.target.value));
+  const onChangeEmail = event =>
+    dispatch(changeCommentEmailAction(event.target.value));
+  const onChangeName = event =>
+    dispatch(changeCommentNameAction(event.target.value));
+  const onChangeBody = event => {
+    if (isShowCommentModal)
+      dispatch(changeCommentBodyAction(event.target.value));
+    if (isShowPostModal) dispatch(changePostBodyAction(event.target.value));
   };
 
   function handleComments() {
@@ -67,16 +83,16 @@ export default function ModalComponent() {
         <form onSubmit={onSubmitModal}>
           {isShowPostModal && (
             <>
-              Title <input type="text" />
+              Title <input type="text" onChange={onChangeTitle} />
             </>
           )}
           {isShowCommentModal && (
             <>
-              Name <input type="text" />
-              Email <input type="email" />
+              Name <input type="text" onChange={onChangeName} />
+              Email <input type="email" onChange={onChangeEmail} />
             </>
           )}
-          Body <input type="text" />
+          Body <input type="text" onChange={onChangeBody} />
           <button type="button" onClick={onCloseModal}>
             Cancel
           </button>

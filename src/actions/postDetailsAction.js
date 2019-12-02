@@ -48,30 +48,24 @@ export const openCommentModalAction = () => dispatch => {
   });
 };
 
-export const changeCommentNameAction = commentName => dispatch => {
+export const changeCommentNameAction = name => dispatch => {
   dispatch({
     type: CHANGE_COMMENT_NAME,
-    payload: {
-      commentName
-    }
+    payload: name
   });
 };
 
-export const changeCommentEmailAction = commentEmail => dispatch => {
+export const changeCommentEmailAction = email => dispatch => {
   dispatch({
     type: CHANGE_COMMENT_EMAIL,
-    payload: {
-      commentEmail
-    }
+    payload: email
   });
 };
 
-export const changeCommentBodyAction = commentBody => dispatch => {
+export const changeCommentBodyAction = body => dispatch => {
   dispatch({
     type: CHANGE_COMMENT_BODY,
-    payload: {
-      commentBody
-    }
+    payload: body
   });
 };
 

@@ -51,21 +51,17 @@ export const openPostModalAction = () => dispatch => {
   });
 };
 
-export const changePostTitleAction = postTitle => dispatch => {
+export const changePostTitleAction = title => dispatch => {
   dispatch({
     type: CHANGE_POST_TITLE,
-    payload: {
-      postTitle
-    }
+    payload: title
   });
 };
 
-export const changePostBodyAction = postBody => dispatch => {
+export const changePostBodyAction = body => dispatch => {
   dispatch({
     type: CHANGE_POST_BODY,
-    payload: {
-      postBody
-    }
+    payload: body
   });
 };
 
