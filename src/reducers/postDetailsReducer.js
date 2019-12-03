@@ -76,7 +76,9 @@ export default (state = initialState, action) => {
         error: initialState.error
       };
     case ADD_COMMENT_SUCCESS:
-      const [{ postId }] = state.comments;
+      const [{ postId }] = state.comments.length
+        ? state.comments
+        : [{ postId: Math.random() }];
       const newComment = {
         postId,
         id: action.payload.id,

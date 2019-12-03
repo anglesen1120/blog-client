@@ -9,7 +9,6 @@ import { loadState, saveState } from "./services/persist.service";
 import { throttle } from "lodash";
 
 const initialState = loadState();
-console.log(initialState);
 const store = configureStore(initialState);
 const MOUNT_NODE = document.getElementById("root");
 Modal.setAppElement(MOUNT_NODE);

@@ -94,11 +94,7 @@ export default function ModalComponent() {
             (isShowCommentModal && "Add comment")}
         </Header>
 
-        <Form
-          noValidate
-          onSubmit={onSubmitModal}
-          isError={commentError || postError}
-        >
+        <Form onSubmit={onSubmitModal} isError={commentError || postError}>
           {isShowPostModal && (
             <Wrapper>
               <label>Title</label>
