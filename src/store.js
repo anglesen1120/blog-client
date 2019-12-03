@@ -12,5 +12,5 @@ export default function configureStore(initialState = {}) {
 
   const enhancers = [applyMiddleware(thunk)];
 
-  return createStore(rootReducer, composeEnhancers(...enhancers));
+  return createStore(rootReducer, initialState, composeEnhancers(...enhancers));
 }
