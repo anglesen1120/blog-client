@@ -16,9 +16,15 @@ Modal.setAppElement(MOUNT_NODE);
 store.subscribe(
   throttle(() => {
     saveState({
-      homeReducer: store.getState().homeReducer,
-      postDetailsReducer: store.getState().postDetailsReducer,
-      userDetailsReducer: store.getState().userDetailsReducer
+      homeReducer: {
+        usersData: store.getState().homeReducer.usersData
+      },
+      postDetailsReducer: {
+        comments: store.getState().postDetailsReducer.comments
+      },
+      userDetailsReducer: {
+        userDetailsData: store.getState().userDetailsReducer.userDetailsData
+      }
     });
   }, 1000)
 );
